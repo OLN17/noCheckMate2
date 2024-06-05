@@ -1,17 +1,16 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const scanButton = document.getElementById("scanButton");
-    const tagDataDiv = document.getElementById("tagData");
-  
-    scanButton.addEventListener("click", async () => {
-      try {
-        const reader = new rc522();
-        await reader.start();
-        const tagData = await reader.scanCard();
-        console.log("Dados da Tag NFC:", tagData);
-        tagDataDiv.textContent = "Dados da Tag NFC: " + tagData;
-      } catch (error) {
-        console.error("Erro ao ler a tag NFC:", error);
-        tagDataDiv.textContent = "Erro ao ler a tag NFC: " + error.message;
-      }
-    });
-});
+async function lerNFC() {
+            if ('NDEFReader' in window) {
+                try {
+                    const nfc = new NDEFReader();
+                    await nfc.scan();
+                    nfc.onreading = event => {
+                        const uid = event.serialNumber;
+                        document.getElementById("resultado").textContent = `UID: ${uid}`;
+                    };
+                } catch (error) {
+                    console.error("Erro ao ler NFC:", error);
+                }
+            } else {
+                console.error("API NFC não suportada neste navegador.");
+            }
+        }
