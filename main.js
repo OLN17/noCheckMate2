@@ -18,3 +18,7 @@ async function lerNFC() {
       // Redirecionar para a página de configurações
       window.location.href = "config.html";
   });
+document.querySelector(".goBackButton").addEventListener("click", function() {
+      // Redirecionar para a página anterior
+      window.history.back();
+    });
