@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leitura NFC MIFARE Classic 1K</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leitura NFC</title>
 </head>
 <body>
-  <div class="container">
-    <h1>Leitura NFC MIFARE Classic 1K</h1>
-    <button id="scanButton">Iniciar Leitura</button>
-    <div id="tagData" class="tagData"></div>
-  </div>
+    <button onclick="lerNFC()">Ler NFC</button>
+    <p id="resultado"></p>
 
-  <!-- Adicione o link para a biblioteca mfrc522-web-reader -->
-  <script src="https://cdn.jsdelivr.net/npm/node-red-contrib-mfrc522-rfid@1.0.0/rc522.min.js"></script>
-  <script src="main.js"></script>
+    <script>
+        async function lerNFC() {
+            if ('NDEFReader' in window) {
+                try {
+                    const nfc = new NDEFReader();
+                    await nfc.scan();
+                    nfc.onreading = event => {
+                        const uid = event.serialNumber;
+                        document.getElementById("resultado").textContent = `UID: ${uid}`;
+                    };
+                } catch (error) {
+                    console.error("Erro ao ler NFC:", error);
+                }
+            } else {
+                console.error("API NFC não suportada neste navegador.");
+            }
+        }
+    </script>
 </body>
 </html>
