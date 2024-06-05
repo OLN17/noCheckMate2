@@ -1,31 +1,24 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt_BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leitura NFC</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>noCheckMate - Controle de Presença</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button onclick="lerNFC()">Ler NFC</button>
+  <div class="container">
+    <div id="container">
+      <img id="logo" src="imagens/xadrez.png" alt="Logo">
+    </div>
+    <h1>noCheckMate</h1>
+      <button onclick="lerNFC()">Ler NFC</button>
     <p id="resultado"></p>
-
-    <script>
-        async function lerNFC() {
-            if ('NDEFReader' in window) {
-                try {
-                    const nfc = new NDEFReader();
-                    await nfc.scan();
-                    nfc.onreading = event => {
-                        const uid = event.serialNumber;
-                        document.getElementById("resultado").textContent = `UID: ${uid}`;
-                    };
-                } catch (error) {
-                    console.error("Erro ao ler NFC:", error);
-                }
-            } else {
-                console.error("API NFC não suportada neste navegador.");
-            }
-        }
-    </script>
+    </div>
+    <button id="settingsButton">Configurações</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
 </body>
 </html>
