@@ -14,9 +14,3 @@ async function lerNFC() {
                 console.error("API NFC não suportada neste navegador.");
             }
         }
-
-document.getElementById("settingsButton").addEventListener("click", function() {
-      // Redirecionar para a página de configurações
-      window.location.href = "config.html";
-  });
-});
